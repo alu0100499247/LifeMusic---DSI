@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %} Festival: {{ festival.nombre}} {% endblock %}
+{% block content %}
+<h1> {{ festival.nombre }} </h1>
+<br>
+<div class="row">
+	<div class="span6">
+		<p> Fecha: {{ festival.fecha }} </p>
+		<p> Genero: {{ festival.genero }}  </p>
+		<p> {{ festival.descripcion }} </p>
+				
+		<br><br>
+		
+		<!-- Regresa a la pagina anterior -->
+		<a href="/festival/page/1" class="btn btn-primary"> Regresar a la lista de festivales </a> 
+	</div>
+	<div class="span5">
+		<img src="/media/{{ festival.imagen }}"/>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %} Inicio - Bienvenido {% endblock %}
+{% block content %} 
+<h3>
+<p align=center><i class="icon-headphones"></i><u> Bienvenido a LifeMusic </u><i class="icon-headphones"></i></p></h3> 
+{% if user.is_authenticated %}
+	<p><strong> Bienvenido  {{ user.username }}</strong> </p>
+	{% if user.get_profile.photo %}
+		<img src="/media/{{ user.get_profile.photo }}"  heigth="220px", width="220px", alt="foto usuario">
+	{% endif %}
+	{% if user.get_profile.genero %}
+		<p><strong> Gusto musical: </strong>{{ user.get_profile.genero }} </p> 
+	{% endif %}
+	{% if user.get_profile.vivo %}
+		<p><strong> Vive en: </strong>{{ user.get_profile.vivo }} </p> 
+	{% endif %}
+	
+
+{% else %}
+	<p align=center> Aqui podrás encontrar todo sobre tus <a href="/grupos/page/1/" class="btn btn-info">grupos</a> favoritos!!! </p><br>
+	<center><img src="/media/images/home1.jpg" width="300px" height="200px"></center><br>
+	<p align=center> Los últimos <a href="/video/page/1/" class="btn btn-info">vídeos</a> musicales!!! </p><br>
+	<center><img src="/media/images/home2.jpg" width="300px" height="200px"></center><br>
+	<p align=center> Los mejores <a href="/festival/page/1/" class="btn btn-info">festivales</a> de música!!! </p><br>
+	<center><img src="/media/images/home3.jpg" width="300px" height="200px"></center><br>
+	<p> Además puedes <a href="{% url "vista_contacto" %}" class="btn btn-info">contactar</a> con nosotros. También puedes buscar mas información <a href="{% url "vista_about" %}" class="btn btn-info">acerca de</a> nuestro grupo de trabajo. Si quieres formar parte activamente de este proyecto, puedes <a href="{% url "vista_registro" %}" class="btn btn-info">registrarte</a> gratuitamente. O si ya formas parte de nuestro equipo puedes <a href="{% url "vista_login" %}" class="btn btn-info">iniciar sesión</a> ya mismo!! <i class="icon-thumbs-up"></i><br><br>
+	<center><img src="/media/images/home4.jpg" width="300px" height="200px"></center>
+{% endif %}
+
+{% endblock %}

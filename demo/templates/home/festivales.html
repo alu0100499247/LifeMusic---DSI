@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %} Lista de Festivales Nacionales {% endblock %}
+{% block content %}
+
+<h3> <p align=center> Lista de festivales nacionales</p></h3>
+<br>
+
+
+{% if festival %}
+ 
+	<table class="table table-hover">
+		<theader>
+			<tr>
+				<th> Titulo </th>
+				<th> Foto   </th>
+				<th> Género </th>
+				<th> Fecha  </th>
+			</tr>
+		</theader>
+	{% for i in festival %}
+		<tbody>
+			<tr>
+				<td> {{i.nombre}} </td>
+				<td> <img src="/media/{{ i.imagen }}" width="50px" heigth="50px"/> </td>
+				<td> {{i.genero}} </td>
+				<td> {{i.fecha}} </td>
+				<td><a class="btn" href="/festival/{{i.id}}/"><li class="icon-search"></li> Ver </td>
+				{% if user.is_authenticated %}
+					<td><a class="btn" href="/edit/festival/{{i.id}}"><li class="icon-pencil"></li> Editar </a></td>
+				{% endif%}
+			</tr>
+		</tbody>
+	{% endfor %}
+	</table>
+{% else %} 
+		<h4>No existen festivales en las próximas fechas :( </h4>
+{% endif %}
+{% if user.is_authenticated %}
+		<a href="{% url "vista_agregar_festival" %}" class="btn btn-primary"><li class="icon-plus"></li> Nuevo Festival</a>
+{% endif %}
+{% if festival %}
+	<div class="pagination">
+		<ul>
+		<li><a href="/festival/page/1"> << </a></li>
+	{% if festival.has_previous %}
+		<li><a href="/festival/page/{{ festival.previous_page_number }}/"> Prev </a></li>
+	{% else %}
+		<li><a href="#"> Prev </a></li>
+	{% endif %}
+	{% if festival.has_next %}
+		<li><a href="/festival/page/{{ festival.next_page_number }}/"> Next </a></li>
+	{% else %}
+		<li><a href="#"> Next </a></li>
+	{% endif %}
+		<li><a href="/festival/page/{{ festival.paginator.num_pages }}"> >> </a></li>
+	</ul>
+	</div>
+	<h4> Pagina {{ festival.number }} de {{ festival.paginator.num_pages }} </h4>
+{% endif %}
+{% endblock %}
